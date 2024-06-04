@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>KIRIM PESAN KE WHATSAPP</title>
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+  <form id="whatsapp-form">
+    <textarea name="message" id="pesan" placeholder="Your Message" required></textarea><br>
+    <button type="submit">Kirim Pesans</button>
+  </form>
+<script src="https://media.twiliocdn.com/sdk/js/chat/v4/twilio-chat.min.js"></script>
+<script>
+  const accountSid = 'AC07338b02e72aa45e576a281366c78152';
+  const authToken = 'd3eda2378adb00100d15ce604ed4a2d4';
+  const client = require('twilio')(accountSid, authToken);
+    
+  const send = document.getElementById('whatsapp-form');
+  send.addEventListener('submit', function() {
+    const pesan = document.getElementById('pesan').value;
+      client.messages
+        .create({
+            body: pesan,
+            from: 'whatsapp:+14155238886',
+            to: 'whatsapp:+6285624923751'
+        })
+        .then(message => console.log(message.sid))
+        .done();
+  });
+</script>
+</body>
+</html>
